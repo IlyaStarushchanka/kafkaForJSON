@@ -1,15 +1,18 @@
 package com.epam.bigdata.entity;
 
+import java.util.Date;
+
 /**
  * Created by Ilya_Starushchanka on 11/1/2016.
  */
 public class LogsEntity {
 
-    private String bidId;
-    private String timestamp;
-    private String ipinyouId;
+   // private String bidId;
+    private long timestamp;
+    /*private String timestamp;
+    private String ipinyouId;*/
     private String userAgent;
-    private String ip;
+    /*private String ip;
     private int region;
     private int city;
     private int adExchange;
@@ -20,13 +23,13 @@ public class LogsEntity {
     private int adSlotWirdth;
     private int adSlotHeight;
     private int adSlotVisibility;
-    private int adSlotFormat;
+    private int adSlotFormat;*/
     private int payingPrice;
-    private String creativeId;
+    //private String creativeId;
     private int biddingPrice;
-    private int advertiserId;
+    /*private int advertiserId;
     private long  userTags;
-    private int streamId;
+    private int streamId;*/
     private String device;
     private String osName;
     private String uaFamily;
@@ -35,54 +38,62 @@ public class LogsEntity {
 
     public LogsEntity(String line){
         String[] fields = line.split("\\t");
-        this.bidId = fields[0];
-        this.timestamp = fields[1];
-        this.ipinyouId = fields[2];
+        //this.bidId = fields[0];
+        this.timestamp = new Date().getTime();
+       // this.timestamp = fields[1];
+        //this.ipinyouId = fields[2];
         this.userAgent = fields[3];
-        this.ip = fields[4];
-        this.region = Integer.parseInt(fields[5]);
-        this.city = Integer.parseInt(fields[6]);
-        this.adExchange = Integer.parseInt(fields[7]);
-        this.domain = fields[8];
-        this.url = fields[9];
-        this.anonymousUrl = fields[10];
-        this.adSlotId = fields[11];
-        this.adSlotWirdth = Integer.parseInt(fields[12]);
-        this.adSlotHeight = Integer.parseInt(fields[13]);
-        this.adSlotVisibility = Integer.parseInt(fields[14]);
-        this.adSlotFormat =Integer.parseInt( fields[15]);
+        //this.ip = fields[4];
+       // this.region = Integer.parseInt(fields[5]);
+        //this.city = Integer.parseInt(fields[6]);
+       // this.adExchange = Integer.parseInt(fields[7]);
+        //this.domain = fields[8];
+        //this.url = fields[9];
+        //this.anonymousUrl = fields[10];
+        //this.adSlotId = fields[11];
+        //this.adSlotWirdth = Integer.parseInt(fields[12]);
+        //this.adSlotHeight = Integer.parseInt(fields[13]);
+        //this.adSlotVisibility = Integer.parseInt(fields[14]);
+        //this.adSlotFormat =Integer.parseInt( fields[15]);
         this.payingPrice = Integer.parseInt(fields[16]);
-        this.creativeId = fields[17];
+        //this.creativeId = fields[17];
         this.biddingPrice = Integer.parseInt(fields[18]);
-        this.advertiserId = Integer.parseInt(fields[19]);
-        this.userTags = Long.parseLong(fields[20]);
-        this.streamId = Integer.parseInt(fields[21]);
+        //this.advertiserId = Integer.parseInt(fields[19]);
+        //this.userTags = Long.parseLong(fields[20]);
+        //this.streamId = Integer.parseInt(fields[21]);
     }
 
 
-    public String getBidId() {
+    /*public String getBidId() {
         return bidId;
     }
 
     public void setBidId(String bidId) {
         this.bidId = bidId;
+    }*/
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public String getTimestamp() {
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    /*public String getTimestamp() {
         return timestamp;
     }
 
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
-    }
+    }*/
 
-    public String getIpinyouId() {
+    /*public String getIpinyouId() {
         return ipinyouId;
     }
 
     public void setIpinyouId(String ipinyouId) {
         this.ipinyouId = ipinyouId;
-    }
+    }*/
 
     public String getUserAgent() {
         return userAgent;
@@ -92,7 +103,7 @@ public class LogsEntity {
         this.userAgent = userAgent;
     }
 
-    public String getIp() {
+    /*public String getIp() {
         return ip;
     }
 
@@ -186,7 +197,7 @@ public class LogsEntity {
 
     public void setAdSlotFormat(int adSlotFormat) {
         this.adSlotFormat = adSlotFormat;
-    }
+    }*/
 
     public int getPayingPrice() {
         return payingPrice;
@@ -196,13 +207,13 @@ public class LogsEntity {
         this.payingPrice = payingPrice;
     }
 
-    public String getCreativeId() {
+    /*public String getCreativeId() {
         return creativeId;
     }
 
     public void setCreativeId(String creativeId) {
         this.creativeId = creativeId;
-    }
+    }*/
 
     public int getBiddingPrice() {
         return biddingPrice;
@@ -212,7 +223,7 @@ public class LogsEntity {
         this.biddingPrice = biddingPrice;
     }
 
-    public int getAdvertiserId() {
+    /*public int getAdvertiserId() {
         return advertiserId;
     }
 
@@ -234,7 +245,7 @@ public class LogsEntity {
 
     public void setStreamId(int streamId) {
         this.streamId = streamId;
-    }
+    }*/
 
     public String getDevice() {
         return device;
