@@ -20,7 +20,7 @@ import java.util.stream.Stream;
  * Created by Ilya_Starushchanka on 11/1/2016.
  */
 public class ProducerJSON {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         // set up the producer
         KafkaProducer<String, String> producer;
         try (InputStream props = Resources.getResource("producer.props").openStream()) {
@@ -30,26 +30,31 @@ public class ProducerJSON {
         }
 
         try(Stream<Path> paths = Files.walk(Paths.get(args[0]))) {
-            paths.forEach(filePath -> {
-                if (Files.isRegularFile(filePath)) {
-                    try(Stream<String> lines = Files.lines(filePath, Charset.forName("ISO-8859-1"))) {
-                        lines.forEach(line -> {
-                            LogsEntity logsEntity = new LogsEntity(line);
-                            UserAgent ua = UserAgent.parseUserAgentString(logsEntity.getUserAgent());
-                            String device =  ua.getBrowser() != null ? ua.getOperatingSystem().getDeviceType().getName() : null;
-                            String osName = ua.getBrowser() != null ? ua.getOperatingSystem().getName() : null;
-                            String uaFamily = ua.getBrowser() != null ? ua.getBrowser().getGroup().getName() : null;
-                            logsEntity.setDevice(device);
-                            logsEntity.setOsName(osName);
-                            logsEntity.setUaFamily(uaFamily);
-                            JSONObject jsonObject = new JSONObject(logsEntity);
-                            producer.send(new ProducerRecord<>(args[1], jsonObject.toString()));
-                        });
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
+            while (true) {
+                paths.forEach(filePath -> {
+                    if (Files.isRegularFile(filePath)) {
+                        try (Stream<String> lines = Files.lines(filePath, Charset.forName("ISO-8859-1"))) {
+                            lines.forEach(line -> {
+                                LogsEntity logsEntity = new LogsEntity(line);
+                                UserAgent ua = UserAgent.parseUserAgentString(logsEntity.getUserAgent());
+                                String device = ua.getBrowser() != null ? ua.getOperatingSystem().getDeviceType().getName() : null;
+                                String osName = ua.getBrowser() != null ? ua.getOperatingSystem().getName() : null;
+                                String uaFamily = ua.getBrowser() != null ? ua.getBrowser().getGroup().getName() : null;
+                                logsEntity.setDevice(device);
+                                logsEntity.setOsName(osName);
+                                logsEntity.setUaFamily(uaFamily);
+                                JSONObject jsonObject = new JSONObject(logsEntity);
+                                producer.send(new ProducerRecord<>(args[1], jsonObject.toString()));
+                            });
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
                     }
-                }
-            });
+                });
+                Thread.sleep(100);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         } finally {
             producer.close();
         }
