@@ -47,16 +47,18 @@ public class ProducerJSON {
                                 logsEntity.setUaFamily(uaFamily);
                                 JSONObject jsonObject = new JSONObject(logsEntity);
                                 producer.send(new ProducerRecord<>(args[1], jsonObject.toString()));
+                                try {
+                                    Thread.sleep(100);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                             });
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
                     }
                 });
-                Thread.sleep(100);
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         } finally {
             producer.close();
         }
