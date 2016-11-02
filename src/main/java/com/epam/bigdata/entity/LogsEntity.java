@@ -11,7 +11,7 @@ public class LogsEntity {
     private long timestamp;
     /*private String timestamp;
     private String ipinyouId;*/
-    private String userAgent;
+    //private String userAgent;
     /*private String ip;
     private int region;
     private int city;
@@ -42,7 +42,7 @@ public class LogsEntity {
         this.timestamp = new Date().getTime();
        // this.timestamp = fields[1];
         //this.ipinyouId = fields[2];
-        this.userAgent = fields[3];
+        //this.userAgent = fields[3];
         //this.ip = fields[4];
        // this.region = Integer.parseInt(fields[5]);
         //this.city = Integer.parseInt(fields[6]);
@@ -95,13 +95,13 @@ public class LogsEntity {
         this.ipinyouId = ipinyouId;
     }*/
 
-    public String getUserAgent() {
+    /*public String getUserAgent() {
         return userAgent;
     }
 
     public void setUserAgent(String userAgent) {
         this.userAgent = userAgent;
-    }
+    }*/
 
     /*public String getIp() {
         return ip;
