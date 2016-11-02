@@ -36,7 +36,7 @@ public class ProducerJSON {
                         try (Stream<String> lines = Files.lines(filePath, Charset.forName("ISO-8859-1"))) {
                             lines.forEach(line -> {
                                 LogsEntity logsEntity = new LogsEntity(line);
-                                UserAgent ua = UserAgent.parseUserAgentString(logsEntity.getUserAgent());
+                                UserAgent ua = UserAgent.parseUserAgentString(line);
                                 String device = ua.getBrowser() != null ? ua.getOperatingSystem().getDeviceType().getName() : null;
                                 String osName = ua.getBrowser() != null ? ua.getOperatingSystem().getName() : null;
                                 String uaFamily = ua.getBrowser() != null ? ua.getBrowser().getGroup().getName() : null;
