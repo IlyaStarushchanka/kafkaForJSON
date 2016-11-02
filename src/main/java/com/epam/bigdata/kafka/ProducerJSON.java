@@ -6,6 +6,7 @@ import eu.bitwalker.useragentutils.UserAgent;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.json.JSONObject;
+import java.util.function.Supplier;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +30,8 @@ public class ProducerJSON {
             producer = new KafkaProducer<>(properties);
         }
 
-        try(Stream<Path> paths = Files.walk(Paths.get(args[0]))) {
+        try {
+            Stream<Path> paths = Files.walk(Paths.get(args[0]));
             while (true) {
                 paths.forEach(filePath -> {
                     if (Files.isRegularFile(filePath)) {
