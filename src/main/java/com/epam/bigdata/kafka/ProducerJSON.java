@@ -30,7 +30,7 @@ public class ProducerJSON {
         }
 
         try(Stream<Path> paths = Files.walk(Paths.get(args[0]))) {
-            //while (true) {
+            while (true) {
                 paths.forEach(filePath -> {
                     if (Files.isRegularFile(filePath)) {
                         try (Stream<String> lines = Files.lines(filePath, Charset.forName("ISO-8859-1"))) {
@@ -51,10 +51,10 @@ public class ProducerJSON {
                         }
                     }
                 });
-                /*Thread.sleep(100);
+                Thread.sleep(100);
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();*/
+            e.printStackTrace();
         } finally {
             producer.close();
         }
